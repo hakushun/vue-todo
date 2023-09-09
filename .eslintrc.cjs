@@ -25,18 +25,5 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/typedef': [
-      'error',
-      {
-        variableDeclaration: true,
-        memberVariableDeclaration: true,
-        propertyDeclaration: true,
-        variableDeclarationIgnoreFunction: true,
-        arrayDestructuring: true,
-        objectDestructuring: true,
-        parameter: true,
-        arrowParameter: true,
-      },
-    ],
   },
 };
