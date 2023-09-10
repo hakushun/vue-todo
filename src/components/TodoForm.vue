@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Todo } from '../types';
 
-const todo = ref<string>('');
-
+const props = defineProps<{ todo: Todo }>();
 const emit = defineEmits<{
-  submit: [title: string];
+  change: [title: string];
+  submit: [];
 }>();
 
+const onChagne = (e: any) => {
+  emit('change', e.target.value);
+};
+
 const onSubmit = () => {
-  emit('submit', todo.value);
-  todo.value = '';
+  emit('submit');
 };
 </script>
 
 <template>
   <form class="form" @submit.prevent="onSubmit">
-    <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -->
-    <input type="text" name="todo" id="todo" class="form__input" v-model="todo" />
-    <button type="submit" class="form__submit">ADD</button>
+    <label for="todo">
+      <input
+        type="text"
+        name="todo"
+        id="todo"
+        class="form__input"
+        :value="props.todo.title"
+        @change="onChagne"
+      />
+    </label>
+    <button type="submit" class="form__submit" :disabled="props.todo.title === ''">
+      {{ props.todo.id === '' ? 'ADD' : 'UPDATE' }}
+    </button>
   </form>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form {
   display: flex;
   gap: 16px;

@@ -12,7 +12,7 @@ export type TodoStatus = keyof typeof todoStatus;
 export type TodoFilter = keyof typeof todoFilter;
 
 export type Todo = {
-  id: number;
+  id: string;
   title: string;
   status: TodoStatus;
 };

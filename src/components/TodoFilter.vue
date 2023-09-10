@@ -8,34 +8,47 @@ const emit = defineEmits<{
   select: [filter: TodoFilter];
 }>();
 
-const onChange = (e: any) => {
-  emit('select', e.target.value);
+const onClick = (filter: TodoFilter) => {
+  emit('select', filter);
 };
 </script>
 <template>
   <div class="filter">
-    <label for="filter">Filter:</label>
-    <select
-      name="filter"
-      id="filter"
-      class="filter__select"
-      :value="props.filter"
-      @change="onChange"
+    <button
+      v-for="[key, filter] in Object.entries(todoFilter)"
+      :key="key"
+      type="button"
+      @click="onClick(filter)"
+      :aria-selected="props.filter === filter"
+      class="filter__button"
     >
-      <option :value="todoFilter.ALL">ALL</option>
-      <option :value="todoFilter.DOING">DOING</option>
-      <option :value="todoFilter.DONE">DONE</option>
-    </select>
+      {{ filter }}
+    </button>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .filter {
   display: flex;
   gap: 16px;
-  font-size: 1.2rem;
+  justify-content: center;
 }
-.filter__select {
+.filter__button {
+  padding: 4px 16px;
   min-width: 150px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--ternary-color);
+  }
+
+  &[aria-selected='true'] {
+    color: var(--white-color);
+    font-weight: 700;
+    background-color: var(--secondary-color);
+  }
 }
 </style>
